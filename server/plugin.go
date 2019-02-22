@@ -90,8 +90,12 @@ func (p *Plugin) MessageHasBeenPosted(c *plugin.Context, post *model.Post) {
 
 	isCompleteMatch, _ := p.checkSubstrings(post.Message, "anytime", "anything")
 	if isCompleteMatch {
+		rootId := post.RootId
+		if rootId == "" {
+			rootId = post.Id
+		}
 		fistPost := &model.Post{
-			RootId:    post.Id,
+			RootId:    rootId,
 			ChannelId: post.ChannelId,
 			UserId:    p.PandaBotID,
 			Message:   ":fist_oncoming:",
