@@ -1,0 +1,47 @@
+{
+    "id": "com.cpanato.panda",
+    "name": "Panda Plugin",
+    "description": "This plugin post reaction or a comment using the fist bump.",
+    "version": "0.0.2",
+    "server": {
+        "executables": {
+            "linux-amd64": "server/dist/plugin-linux-amd64",
+            "darwin-amd64": "server/dist/plugin-darwin-amd64",
+            "windows-amd64": "server/dist/plugin-windows-amd64.exe"
+        }
+    },
+    "settings_schema": {
+        "header": "Brought to you from Punta Cana.",
+        "footer": "Made with ❤️ ",
+        "settings": [{
+                "key": "Username",
+                "display_name": "Panda's Username",
+                "type": "text",
+                "help_text": "Name of the Panda user"
+            },
+            {
+            "key": "Password",
+            "display_name": "Panda's Password",
+            "type": "generated",
+            "help_text": "Name of the Panda user"
+        },
+        {
+            "key": "Email",
+            "display_name": "Panda's email",
+            "type": "text",
+            "help_text": "Email of Panda"
+        },
+        {
+            "key": "Teams",
+            "display_name": "Teams",
+            "type": "text",
+            "help_text": "Teams allowed to Panda interact, separted by comma. For example: TeamA,TeamB"
+        },
+        {
+            "key": "Channels",
+            "display_name": "Channels",
+            "type": "text",
+            "help_text": "Channels allowed to Panda interact, separted by comma. For example: channelA,channelB"
+        }]
+    }
+}
