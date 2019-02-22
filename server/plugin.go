@@ -36,9 +36,9 @@ func (p *Plugin) OnActivate() error {
 			Password: p.configuration.Password,
 			Email:    p.configuration.Email,
 		}
-		pandaUserCreated, err := p.API.CreateUser(pandaUser)
-		if err != nil {
-			return fmt.Errorf("Error creating user panda: %v", err.Error())
+		pandaUserCreated, errUser := p.API.CreateUser(pandaUser)
+		if errUser != nil {
+			return fmt.Errorf("Error creating user panda: %v", errUser.Error())
 		}
 		p.PandaBotID = pandaUserCreated.Id
 		return nil
