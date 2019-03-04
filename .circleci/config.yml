@@ -36,6 +36,7 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/cpanato/mattermost-plugin-panda
+      - run: ls -la
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -63,9 +64,9 @@ workflows:
             branches:
               ignore: /.*/
       - build:
-          requires:
-            - lint
-            - test
+          # requires:
+            # - lint
+            # - test
           filters:
             tags:
               only: /^v.*/
