@@ -49,14 +49,8 @@ workflows:
       - test
   tagged-build:
     jobs:
-      - lint:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - test:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
+      - lint
+      - test
       - build:
           filters:
             tags:
