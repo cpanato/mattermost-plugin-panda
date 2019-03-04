@@ -36,8 +36,13 @@ jobs:
     steps:
       - attach_workspace:
           at: dist/
-      - run: ls -la dist/
-      - run: cd dist && ls -la
+      - run:
+          name: "test"
+          command: |
+            ls -la
+            cd dist
+            ls -la
+
       - run:
           name: "Publish Release on GitHub"
           command: |
