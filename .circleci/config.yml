@@ -17,6 +17,8 @@ jobs:
       - checkout
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make test
+      - run: ls -la
+      - run: pwd
 
   build:
     docker:
