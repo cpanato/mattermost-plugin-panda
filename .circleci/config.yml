@@ -3,36 +3,29 @@ jobs:
   lint:
     docker:
       - image: circleci/golang:1.12
-
     working_directory: /go/src/github.com/cpanato/mattermost-plugin-panda
     steps:
       - checkout
-
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make check-style
 
   test:
     docker:
       - image: circleci/golang:1.12
-
     working_directory: /go/src/github.com/cpanato/mattermost-plugin-panda
     steps:
       - checkout
-
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make test
 
   build:
     docker:
       - image: circleci/golang:1.12
-
     working_directory: /go/src/github.com/cpanato/mattermost-plugin-panda
     steps:
       - checkout
-
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make dist
-
       - persist_to_workspace:
           path: dist/
 
@@ -54,25 +47,3 @@ workflows:
     jobs:
       - lint
       - test
-  tagged-build:
-    jobs:
-      - lint:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - test:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - build:
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
-      - publish-github-release:
-          requires:
-            - lint
-            - test
-            - build
-          filters:
-            tags:
-              only: /^\d+\.\d+\.\d+$/
