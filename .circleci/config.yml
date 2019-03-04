@@ -27,7 +27,8 @@ jobs:
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make dist
       - persist_to_workspace:
-          root: dist/
+          root: /tmp/workspace
+          path: dist/
 
   publish-github-release:
     docker:
