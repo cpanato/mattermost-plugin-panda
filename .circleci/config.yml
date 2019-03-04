@@ -37,17 +37,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: "test"
-          command: |
-            ls -la
-            cd ./dist
-            ls -la
-
-      - run:
           name: "Publish Release on GitHub"
           command: |
-            VERSION=$(my-binary --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./dist/*.tar.gz
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} ./dist/com.cpanato.panda-*.tar.gz
 
 workflows:
   version: 2
