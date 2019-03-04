@@ -36,12 +36,13 @@ jobs:
     steps:
       - attach_workspace:
           at: /go/src/github.com/cpanato/mattermost-plugin-panda
-      - run: ls -la
+      - run: ls -la /tmp/workspace
+      - run: ls -la /tmp/workspace/dist
       - run:
           name: "Publish Release on GitHub"
           command: |
             VERSION=$(my-binary --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} dist/com.cpanato.panda-*.tar.gz
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} /tmp/workspace/dist/com.cpanato.panda-*.tar.gz
 
 workflows:
   version: 2
