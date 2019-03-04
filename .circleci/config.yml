@@ -27,8 +27,7 @@ jobs:
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make dist
       - persist_to_workspace:
-          root: /go/src/github.com/cpanato/mattermost-plugin-panda
-          path: dist/
+          root: dist/
 
   publish-github-release:
     docker:
@@ -50,9 +49,31 @@ workflows:
       - test
   tagged-build:
     jobs:
-      - lint
-      - test
+      - lint:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - test:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - build:
           filters:
             tags:
-              only: /^\d+\.\d+\.\d+$/
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - publish-github-release:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
