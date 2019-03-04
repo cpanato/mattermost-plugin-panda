@@ -27,16 +27,15 @@ jobs:
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make dist
       - persist_to_workspace:
-          root: /go/src/github.com/cpanato/mattermost-plugin-panda/
-          paths:
-            - dist/*.tar.gz
+          root: .
+          paths: ./dist/*.tar.gz # Glob. Will persist everything in folder
 
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ./dist
+          at: .
       - run:
           name: "test"
           command: |
