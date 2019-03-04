@@ -22,9 +22,57 @@ jobs:
       - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
       - run: make test
 
+  build:
+    docker:
+      - image: circleci/golang:1.12
+
+    working_directory: /go/src/github.com/cpanato/mattermost-plugin-panda
+    steps:
+      - checkout
+
+      - run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+      - run: make dist
+
+      - persist_to_workspace:
+          path: dist/
+
+  publish-github-release:
+    docker:
+      - image: cibuilds/github:0.10
+    steps:
+      - attach_workspace:
+          at: dist/
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            VERSION=$(my-binary --version)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+
 workflows:
   version: 2
   untagged-build:
     jobs:
       - lint
       - test
+  tagged-build:
+    jobs:
+      - lint:
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - test:
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - build:
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
+      - publish-github-release:
+          requires:
+            - lint
+            - test
+            - build
+          filters:
+            tags:
+              only: /^\d+\.\d+\.\d+$/
