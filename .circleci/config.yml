@@ -35,7 +35,7 @@ jobs:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: dist/
+          at: /go/src/github.com/cpanato/mattermost-plugin-panda
       - run:
           name: "Publish Release on GitHub"
           command: |
@@ -46,9 +46,8 @@ workflows:
   version: 2
   untagged-build:
     jobs:
-      # - lint
-      # - test
-      - build
+      - lint
+      - test
   tagged-build:
     jobs:
       - lint:
