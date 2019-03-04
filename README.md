@@ -1,1 +1,1 @@
-# Panda Bot [![Build Status](https://travis-ci.com/cpanato/mattermost-plugin-panda.svg?branch=master)](https://travis-ci.com/cpanato/mattermost-plugin-panda)
+# Panda Bot [![CircleCI](https://circleci.com/gh/cpanato/mattermost-plugin-panda.svg?style=svg)](https://circleci.com/gh/cpanato/mattermost-plugin-panda)
