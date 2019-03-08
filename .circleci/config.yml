@@ -62,9 +62,9 @@ workflows:
             branches:
               ignore: /.*/
       - build:
-          # requires:
-            # - lint
-            # - test
+          requires:
+            - lint
+            - test
           filters:
             tags:
               only: /^v.*/
