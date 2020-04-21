@@ -71,6 +71,7 @@ workflows:
             branches:
               ignore: /.*/
       - publish-github-release:
+          context: cpanato-gh-token
           requires:
             - lint
             - test
