@@ -132,8 +132,6 @@ func (p *Plugin) checkSubstrings(str string, subs ...string) (bool, int) {
 	matches := 0
 	isCompleteMatch := true
 
-	p.API.LogDebug("Panda Plugin", str, subs)
-
 	for _, sub := range subs {
 		if strings.Contains(str, sub) {
 			matches++
